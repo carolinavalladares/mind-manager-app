@@ -1,11 +1,13 @@
-export interface ColumnType {
+export interface Task {
   title: string;
-  color: string;
-  cards: Card[];
+  description: string;
+  priority: boolean;
+  done: boolean;
 }
 
-export interface Card {
+interface List {
+  color: string;
   title: string;
-  assignedMember: string | null;
-  column: ColumnType;
+  description: string;
+  tasks: Task[];
 }

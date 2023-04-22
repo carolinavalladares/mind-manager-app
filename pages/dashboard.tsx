@@ -4,20 +4,20 @@ export default function Page() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-lg ">My Projects</h2>
+        <h2 className="text-lg ">My Lists</h2>
 
         <Link
-          title="new project"
+          title="new list"
           className="text-sm hover:underline"
-          href={"/project/new"}
+          href={"/list/new"}
         >
-          New Project
+          New List
         </Link>
       </div>
       <div>
         {/* empty state */}
         <div className="flex items-center justify-center text-slate-600 h-60">
-          No Projects Yet....
+          No Lists Yet....
         </div>
       </div>
     </div>
