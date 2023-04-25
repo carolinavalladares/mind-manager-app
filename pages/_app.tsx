@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "@/components/Layout";
+import AuthContextProvider from "@/contexts/AuthContext";
 
 import { Poppins } from "next/font/google";
 
@@ -13,9 +14,11 @@ const poppins = Poppins({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={`${poppins.variable}`}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthContextProvider>
     </div>
   );
 }

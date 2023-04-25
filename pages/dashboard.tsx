@@ -1,4 +1,6 @@
+import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 
 export default function Page() {
   return (
@@ -23,3 +25,20 @@ export default function Page() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { mindManager_token: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

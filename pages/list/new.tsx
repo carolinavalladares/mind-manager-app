@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { List, Task } from "@/types/types";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 // interface FormValues {
 //   color: string;
@@ -173,3 +175,20 @@ export default function Page() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { mindManager_token: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

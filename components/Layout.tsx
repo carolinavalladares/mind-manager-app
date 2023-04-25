@@ -6,10 +6,10 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="font-poppins">
+    <div className="font-poppins ">
       <Header />
 
-      <div className="max-w-screen-lg m-auto mt-4 ">{children}</div>
+      <div className="max-w-screen-lg m-auto mt-4 px-4">{children}</div>
     </div>
   );
 }

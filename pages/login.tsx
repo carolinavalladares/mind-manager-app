@@ -1,4 +1,7 @@
 import { useState } from "react";
+import useAuth from "@/hooks/useAuth";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 
 interface FormValues {
   email: string;
@@ -7,6 +10,8 @@ interface FormValues {
 
 export default function Page() {
   const [values, setValues] = useState<FormValues>({ email: "", password: "" });
+
+  const { signIn } = useAuth();
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>,
@@ -19,7 +24,7 @@ export default function Page() {
       return;
     }
 
-    console.log(values);
+    signIn(values);
   };
 
   return (
@@ -72,3 +77,20 @@ export default function Page() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { mindManager_token: token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

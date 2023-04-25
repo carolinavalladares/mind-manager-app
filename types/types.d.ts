@@ -11,3 +11,14 @@ interface List {
   description: string;
   tasks: Task[];
 }
+
+export interface LoginType {
+  email: string;
+  password: string;
+}
+
+export interface User {
+  email: string;
+  username: string;
+  id: number;
+}
