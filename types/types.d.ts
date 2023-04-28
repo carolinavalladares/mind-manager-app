@@ -12,7 +12,7 @@ interface List {
   tasks: Task[];
 }
 
-export interface LoginType {
+export interface LoginDataType {
   email: string;
   password: string;
 }
@@ -21,4 +21,10 @@ export interface User {
   email: string;
   username: string;
   id: number;
+}
+
+export interface RegisterDataType {
+  email: string;
+  username: string;
+  password: string;
 }

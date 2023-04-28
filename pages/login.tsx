@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface FormValues {
   email: string;
@@ -9,22 +10,22 @@ interface FormValues {
 }
 
 export default function Page() {
-  const [values, setValues] = useState<FormValues>({ email: "", password: "" });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   const { signIn } = useAuth();
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    values: FormValues
-  ) => {
-    e.preventDefault();
-
-    if (!values.email || !values.password) {
+  const submit: SubmitHandler<FormValues> = (data: FormValues) => {
+    if (!data.email || !data.password) {
       console.log("please enter email and password before submitting...");
       return;
     }
 
-    signIn(values);
+    signIn(data);
   };
 
   return (
@@ -32,43 +33,56 @@ export default function Page() {
       <div className="max-w-lg m-auto bg-white shadow-md p-6">
         <h1 className="text-lg mb-4">Login</h1>
         <form
-          onSubmit={(e) => handleSubmit(e, values as FormValues)}
+          onSubmit={handleSubmit(submit)}
           className="flex flex-col justify-center"
         >
-          <div className="mb-4 flex flex-col justify-center">
-            <label title="email" className="mb-2" htmlFor="email">
-              email:{" "}
+          <div className="mb-4 flex flex-col justify-center relative">
+            <label title="email" className="mb-2 text-sm" htmlFor="email">
+              email:
             </label>
             <input
-              onChange={(e) => setValues({ ...values, email: e.target.value })}
-              className="border h-10 px-4 focus:border-slate-600 focus:outline-none"
+              {...register("email", { required: true })}
+              className={`border h-10 px-4 focus:border-slate-600 focus:outline-none ${
+                errors.email && "border-rose-600"
+              }`}
               id="email"
               name="email"
-              type="text"
+              type="email"
             />
+
+            {errors.email && (
+              <p className="text-xs text-rose-600 absolute top-full">
+                email is required
+              </p>
+            )}
           </div>
 
-          <div className="mb-4 flex flex-col justify-center">
-            <label title="password" className="mb-2" htmlFor="password">
-              {" "}
+          <div className="mb-4 flex flex-col justify-center relative">
+            <label title="password" className="mb-2 text-sm" htmlFor="password">
               password:
             </label>
 
             <input
-              onChange={(e) =>
-                setValues({ ...values, password: e.target.value })
-              }
-              className="border h-10 px-4 focus:border-slate-600 focus:outline-none"
+              {...register("password", { required: true })}
+              className={`border h-10 px-4 focus:border-slate-600 focus:outline-none ${
+                errors.password && "border-rose-600"
+              }`}
               id="password"
               name="password"
               type="password"
             />
+
+            {errors.password && (
+              <p className="text-xs text-rose-600 absolute top-full">
+                password is required
+              </p>
+            )}
           </div>
 
           <button
             title="login"
             type="submit"
-            className="text-white bg-slate-600 h-10"
+            className="text-white bg-slate-600 h-10 mt-2"
           >
             Login
           </button>

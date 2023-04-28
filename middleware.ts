@@ -25,5 +25,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/auth/user"],
+  matcher: ["/api/auth/user", "/api/auth/delete_account"],
 };

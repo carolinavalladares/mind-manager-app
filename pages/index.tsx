@@ -1,5 +1,7 @@
+import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,3 +19,20 @@ export default function Home() {
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { mindManager_token: token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/dashboard",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

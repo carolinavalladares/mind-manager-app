@@ -1,8 +1,9 @@
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
+import { MdLogout } from "react-icons/md";
 
 export default function Header() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <header className=" py-5 shadow-md bg-white">
@@ -12,7 +13,19 @@ export default function Header() {
         </Link>
 
         {user ? (
-          <p>{user.username}</p>
+          <div className="flex gap-4 items-center">
+            <Link title="dashboard" className="text-sm" href={`/dashboard`}>
+              {user.username}
+            </Link>
+            <button
+              title="sign out"
+              className="flex flex-col justify-center items-center"
+              onClick={signOut}
+            >
+              <MdLogout />
+              <p className="text-xs">sign out</p>
+            </button>
+          </div>
         ) : (
           <Link title="login" className="text-sm" href={"/login"}>
             Login
