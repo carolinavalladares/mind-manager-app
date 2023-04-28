@@ -19,11 +19,15 @@ export default async function middleware(req: NextRequest) {
 
       return response;
     } catch (error) {
-      return NextResponse.json({ error, status: 400 });
+      return NextResponse.json({
+        error,
+        status: 400,
+        message: "Invalid token",
+      });
     }
   }
 }
 
 export const config = {
-  matcher: ["/api/auth/user", "/api/auth/delete_account"],
+  matcher: ["/api/auth/user", "/api/auth/delete_account", "/api/list/:path*"],
 };

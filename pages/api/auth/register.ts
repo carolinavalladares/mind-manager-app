@@ -29,9 +29,9 @@ export default async function handler(
         },
       });
 
-      res.status(200).json({
+      res.status(201).json({
         message: "user successfully created...",
-        status: 200,
+        status: 201,
         user: {
           username: newUser.username,
           email: newUser.email,
