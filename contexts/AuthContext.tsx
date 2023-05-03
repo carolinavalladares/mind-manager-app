@@ -14,6 +14,8 @@ interface AuthContextType {
   signUp: (data: RegisterDataType) => void;
   deleteAccount: () => void;
   signOut: () => void;
+
+  checkUserAuth: () => boolean;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -22,11 +24,23 @@ export default function AuthContextProvider({ children }: Props) {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    getUser();
+    const { mindManager_token: token } = parseCookies(undefined);
+    if (token) {
+      getUser(token);
+    }
   }, []);
 
-  const getUser = async () => {
-    const token = getToken();
+  const checkUserAuth = () => {
+    const { mindManager_token: token } = parseCookies(undefined);
+
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const getUser = async (token: string) => {
     const req = await fetch("/api/auth/user", {
       headers: {
         "Content-Type": "application/json",
@@ -144,7 +158,15 @@ export default function AuthContextProvider({ children }: Props) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signIn, signOut, signUp, deleteAccount }}
+      value={{
+        user,
+        signIn,
+        signOut,
+        signUp,
+        deleteAccount,
+
+        checkUserAuth,
+      }}
     >
       <div>{children}</div>
     </AuthContext.Provider>

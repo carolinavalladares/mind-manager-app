@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import Link from "next/link";
 import useAuth from "@/hooks/useAuth";
 import { MdLogout } from "react-icons/md";
 
 export default function Header() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, checkUserAuth } = useAuth();
 
   return (
     <header className=" py-5 shadow-md bg-white">
@@ -12,7 +13,7 @@ export default function Header() {
           <h2>Mind Manager</h2>
         </Link>
 
-        {user ? (
+        {user && checkUserAuth() ? (
           <div className="flex gap-4 items-center">
             <Link title="dashboard" className="text-sm" href={`/dashboard`}>
               {user.username}
