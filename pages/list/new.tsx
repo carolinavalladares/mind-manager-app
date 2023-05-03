@@ -86,6 +86,11 @@ export default function Page() {
 
     const { mindManager_token: token } = parseCookies(undefined);
 
+    if (!token) {
+      toast.warn("please login again");
+      return Router.push("/");
+    }
+
     console.log(values);
 
     try {
@@ -101,7 +106,7 @@ export default function Page() {
 
       const resp = await req.json();
 
-      if (resp.status > 399) {
+      if (!req.ok) {
         return toast.error(resp.message);
       }
 

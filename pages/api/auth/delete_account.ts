@@ -10,9 +10,7 @@ export default async function handler(
     const { user } = req.headers;
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "user not found...", status: 400 });
+      return res.status(400).json({ message: "user not found..." });
     }
 
     const userInfo = JSON.parse(user as string);
@@ -26,15 +24,15 @@ export default async function handler(
 
       return res.status(200).json({
         message: "account deleted successfully!",
-        status: 200,
+
         user: userDeleted,
       });
     } catch (error) {
       return res
         .status(400)
-        .json({ message: "Error deleting account...", status: 400, error });
+        .json({ message: "Error deleting account...", error });
     }
   }
 
-  return res.status(200).json({ message: "delete account route", status: 200 });
+  return res.status(200).json({ message: "delete account route" });
 }

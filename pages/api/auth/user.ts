@@ -9,7 +9,7 @@ export default async function handler(
 
     const userInfo = JSON.parse(user as string);
 
-    return res.status(200).json({ user: userInfo, status: 200 });
+    return res.status(200).json({ user: userInfo });
   }
 
   return res.status(200).json({ message: "get logged-in user" });

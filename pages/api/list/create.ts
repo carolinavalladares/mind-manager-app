@@ -25,13 +25,11 @@ export default async function handler(
 
       return res.status(201).json({
         message: "list created successfully!",
-        status: 200,
+
         list: newList,
       });
     } catch (error) {
-      return res
-        .status(400)
-        .json({ message: "error creating list...", status: 400, error });
+      return res.status(400).json({ message: "error creating list...", error });
     }
   }
 

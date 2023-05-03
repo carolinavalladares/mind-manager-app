@@ -15,17 +15,13 @@ export default async function handler(
     const user = await prisma.user.findUnique({ where: { email: email } });
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ message: "user does not exist...", status: 404 });
+      return res.status(404).json({ message: "user does not exist..." });
     }
 
     const correctPassword = await bcrypt.compare(password, user.password);
 
     if (!correctPassword) {
-      return res
-        .status(401)
-        .json({ message: "incorrect password...", status: 401 });
+      return res.status(401).json({ message: "incorrect password..." });
     }
 
     const loggedInUser = {
@@ -45,7 +41,7 @@ export default async function handler(
 
     res.status(200).json({
       message: "login successful.",
-      status: 200,
+
       user: loggedInUser,
       token,
     });

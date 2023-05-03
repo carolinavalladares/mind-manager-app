@@ -67,7 +67,7 @@ export default function AuthContextProvider({ children }: Props) {
 
       const resp = await loginReq.json();
 
-      if (resp.status > 399) {
+      if (!loginReq.ok) {
         return toast.error(resp.message);
       }
 
@@ -110,7 +110,7 @@ export default function AuthContextProvider({ children }: Props) {
 
       const resp = await req.json();
 
-      if (resp.status > 399) {
+      if (!req.ok) {
         return toast.error(resp.message);
       }
 
@@ -141,7 +141,7 @@ export default function AuthContextProvider({ children }: Props) {
 
       const resp = await req.json();
 
-      if (resp.status > 399) {
+      if (!req) {
         return toast.error(resp.message);
       }
 

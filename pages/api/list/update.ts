@@ -18,11 +18,11 @@ export default async function handler(
 
       res.status(200).json({
         message: "Successfully updated list",
-        status: 200,
+
         updatedList,
       });
     } catch (error) {
-      res.status(400).json({ error, status: 400 });
+      res.status(400).json({ error });
     }
   }
 

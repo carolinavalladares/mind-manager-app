@@ -14,7 +14,6 @@ export default async function handler(
     if (!email || !password || !username) {
       return res.status(400).json({
         message: "email, username, password are required...",
-        status: 400,
       });
     }
 
@@ -31,7 +30,7 @@ export default async function handler(
 
       res.status(201).json({
         message: "user successfully created...",
-        status: 201,
+
         user: {
           username: newUser.username,
           email: newUser.email,
@@ -39,9 +38,7 @@ export default async function handler(
         },
       });
     } catch (error) {
-      res
-        .status(400)
-        .json({ message: "Unable to register user", status: 400, error });
+      res.status(400).json({ message: "Unable to register user", error });
     }
   } else {
     res.status(200).json({ route: "register" });

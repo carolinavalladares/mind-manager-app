@@ -15,11 +15,9 @@ export default async function handler(
         where: { authorId: userInfo.id },
       });
 
-      return res.status(200).json({ status: 200, lists });
+      return res.status(200).json({ lists });
     } catch (error) {
-      return res
-        .status(400)
-        .json({ message: "unable to fetch lists", status: 400, error });
+      return res.status(400).json({ message: "unable to fetch lists", error });
     }
   }
 

@@ -5,6 +5,7 @@ import { List, Task } from "@/types/types";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { parseCookies } from "nookies";
 import { toast } from "react-toastify";
+import Router from "next/router";
 
 interface Props {
   list: List;
@@ -33,6 +34,11 @@ export default function Page({ list }: Props) {
 
     const { mindManager_token: token } = parseCookies(undefined);
 
+    if (!token) {
+      toast.warn("please login again");
+      return Router.push("/");
+    }
+
     const req = await fetch("/api/list/update", {
       method: "PUT",
       headers: {
@@ -47,15 +53,45 @@ export default function Page({ list }: Props) {
 
     console.log(resp);
 
-    if (resp.status > 399) {
+    if (!req.ok) {
       return toast.error("error marking task as complete, please try again...");
     }
 
     setTasks([...listTasks]);
   };
 
-  const deleteList = () => {
-    console.log(`delete list ${list.id}`);
+  const deleteList = async () => {
+    const { mindManager_token: token } = parseCookies(undefined);
+
+    if (!token) {
+      toast.warn("please login again");
+      return Router.push("/");
+    }
+
+    const reqBody = {
+      id: list.id,
+    };
+
+    const req = await fetch(`/api/list/delete?id=${list.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(reqBody),
+    });
+
+    const resp = await req.json();
+    console.log(resp);
+
+    if (!req.ok) {
+      return toast.error("failed to delete");
+    }
+
+    toast.success("list successfully deleted");
+
+    return Router.push("/dashboard");
   };
 
   return (
@@ -113,6 +149,17 @@ export default function Page({ list }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { mindManager_token: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   const listId = Number(ctx.params?.id);
   console.log(listId);
 
