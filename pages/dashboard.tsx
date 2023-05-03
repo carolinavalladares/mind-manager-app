@@ -1,10 +1,41 @@
+import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { parseCookies } from "nookies";
+import { List } from "@/types/types";
+import ListPreview from "@/components/ListPreview";
 
 export default function Page() {
   const { deleteAccount } = useAuth();
+  const [lists, setLists] = useState<List[]>([]);
+
+  useEffect(() => {
+    getLists();
+  }, []);
+
+  const getLists = async () => {
+    const { mindManager_token: token } = parseCookies(undefined);
+
+    try {
+      const req = await fetch("/api/list/all", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const resp = await req.json();
+
+      setLists(resp.lists);
+
+      console.log(resp.lists);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-[650px]">
@@ -20,12 +51,18 @@ export default function Page() {
             New List
           </Link>
         </div>
-        <div>
-          {/* empty state */}
+
+        {lists.length > 0 ? (
+          <div className="mt-7 flex flex-wrap gap-4 justify-center">
+            {lists.map((list) => {
+              return <ListPreview key={list.id} list={list} />;
+            })}
+          </div>
+        ) : (
           <div className="flex items-center justify-center text-slate-600 h-60">
             No Lists Yet....
           </div>
-        </div>
+        )}
       </div>
 
       <div className="flex items-center justify-center">

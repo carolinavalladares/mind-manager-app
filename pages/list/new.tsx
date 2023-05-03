@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { List, Task } from "@/types/types";
+import { ListData, Task } from "@/types/types";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BsPaintBucket } from "react-icons/bs";
 import { GetServerSideProps } from "next";
@@ -15,7 +15,7 @@ interface FormValues {
 }
 
 export default function Page() {
-  const [values, setValues] = useState<List>({
+  const [values, setValues] = useState<ListData>({
     title: "",
     color: "",
     description: "",
@@ -37,7 +37,7 @@ export default function Page() {
     e.preventDefault();
 
     if (currentTask.title == "") {
-      return;
+      return toast.warn("task must have a title");
     }
     console.log(currentTask);
 

@@ -5,7 +5,7 @@ export interface Task {
   done: boolean;
 }
 
-interface List {
+interface ListData {
   color: string;
   title: string;
   description: string;
@@ -27,4 +27,13 @@ export interface RegisterDataType {
   email: string;
   username: string;
   password: string;
+}
+
+export interface List {
+  color: string;
+  title: string;
+  description: string;
+  tasks: string;
+  authorId: number;
+  id: number;
 }
