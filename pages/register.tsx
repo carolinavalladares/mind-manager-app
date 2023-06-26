@@ -3,6 +3,7 @@ import useAuth from "@/hooks/useAuth";
 import { parseCookies } from "nookies";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface FormValues {
   email: string;
@@ -140,6 +141,12 @@ export default function Page() {
             Register
           </button>
         </form>
+        <p className="text-xs text-slate-400 text-center mt-4 font-light">
+          Already registered?{" "}
+          <Link className="text-slate-800 hover:underline" href={"/login"}>
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
