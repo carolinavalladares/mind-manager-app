@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ListData, Task } from "@/types/types";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import { BsPaintBucket } from "react-icons/bs";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
@@ -131,8 +131,11 @@ export default function Page() {
 
       {/* color */}
       <div
-        style={{ backgroundColor: selectedColor }}
-        className="pt-3 rounded-2xl px-1 pb-1 "
+        style={{
+          backgroundColor: selectedColor,
+          border: `2px solid ${selectedColor}`,
+        }}
+        className="pt-3 rounded-sm  "
       >
         <div className="flex justify-end px-2 mb-2">
           <input
@@ -146,13 +149,13 @@ export default function Page() {
           <button
             type="button"
             onClick={handleColorPopup}
-            className="text-lg bg-slate-600 text-white flex items-center justify-center p-1 rounded-sm"
+            className="text-lg bg-slate-800 text-white flex items-center justify-center p-1 rounded-sm"
           >
             <BsPaintBucket />
           </button>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl">
+        <div className="bg-white p-6 rounded-sm">
           <form className="flex flex-col justify-center">
             <div className="flex flex-col mb-4">
               <label className="mb-2 text-sm" htmlFor="title">
@@ -195,12 +198,12 @@ export default function Page() {
                       <div className="h-3 w-3 bg-rose-500"></div>
                     ) : null}
                   </div>
-                  <p>Priority</p>
+                  <p className="text-sm">Priority</p>
                 </div>
                 <button
                   onClick={(e) => addTask(e)}
                   title="add"
-                  className="h-9 w-9 fle items-center justify-center text-white bg-slate-600"
+                  className="h-9 w-9 fle items-center justify-center text-white bg-slate-800 rounded-sm"
                 >
                   +
                 </button>
@@ -211,7 +214,7 @@ export default function Page() {
                 {values.tasks.map((task, index) => {
                   return (
                     <div
-                      className="border border-slate-300 py-2 px-4 flex items-center justify-between"
+                      className="border border-b-0 last-of-type:border-b border-slate-300 py-2 px-4 flex items-center justify-between"
                       key={index}
                     >
                       <p>{task.title}</p>
@@ -240,7 +243,7 @@ export default function Page() {
             <button
               onClick={(e) => createList(e)}
               title="create"
-              className="bg-slate-600 text-white h-10"
+              className="bg-slate-800 text-white h-10 rounded-sm"
             >
               Create
             </button>

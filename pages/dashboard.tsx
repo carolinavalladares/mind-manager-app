@@ -5,6 +5,7 @@ import Link from "next/link";
 import { parseCookies } from "nookies";
 import { List } from "@/types/types";
 import ListPreview from "@/components/ListPreview";
+import { AiOutlinePlus } from "react-icons/ai";
 
 export default function Page() {
   const { deleteAccount } = useAuth();
@@ -38,22 +39,22 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col min-h-[650px]">
+    <div className="flex flex-col min-h-[600px]">
       <div className="flex-1">
         <div className="flex items-center justify-between">
           <h2 className="text-lg ">My Lists</h2>
 
           <Link
             title="new list"
-            className="text-sm hover:underline"
+            className="text-lg  flex items-center justify-center bg-slate-800 text-white p-2 rounded-sm"
             href={"/list/new"}
           >
-            New List
+            <AiOutlinePlus />
           </Link>
         </div>
 
         {lists.length > 0 ? (
-          <div className="mt-7 flex flex-wrap gap-4 justify-center">
+          <div className="mt-7 flex flex-wrap gap-4">
             {lists.map((list) => {
               return <ListPreview key={list.id} list={list} />;
             })}

@@ -10,12 +10,11 @@ import { Poppins } from "next/font/google";
 const poppins = Poppins({
   weight: ["300", "400", "700"],
   subsets: ["latin"],
-  variable: "--poppins",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${poppins.variable}`}>
+    <div className={`${poppins.className}`}>
       <AuthContextProvider>
         <Layout>
           <Component {...pageProps} />

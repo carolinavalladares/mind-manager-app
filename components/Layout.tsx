@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
     <div className="font-poppins ">
       <Header />
 
-      <div className="max-w-screen-lg m-auto mt-4 px-4 min-h-[650px]">
+      <div className="max-w-screen-lg m-auto mt-4 px-4 min-h-[600px]">
         {children}
       </div>
     </div>

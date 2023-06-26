@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { List, Task } from "@/types/types";
-import { RiErrorWarningLine } from "react-icons/ri";
+import { MdPriorityHigh } from "react-icons/md";
+import { GrTextAlignFull } from "react-icons/gr";
 
 import Link from "next/link";
 
@@ -19,10 +20,10 @@ export default function ListPreview({ list }: Props) {
 
   return (
     <div
-      style={{ backgroundColor: list.color }}
-      className="pt-2 px-1 pb-1 rounded-md max-w-[200px] w-[200px]"
+      style={{ backgroundColor: list.color, border: `1px solid ${list.color}` }}
+      className="pt-2 rounded-t-sm  max-w-[200px] w-[200px]"
     >
-      <div className="bg-white rounded-md p-2 h-full flex flex-col ">
+      <div className="bg-white rounded-t-sm p-2 h-full flex flex-col ">
         <p className=" border-b mb-2">{list.title}</p>
 
         <div className="flex-1 relative">
@@ -38,7 +39,7 @@ export default function ListPreview({ list }: Props) {
                       <div>
                         {task.priority && (
                           <div className="text-rose-600">
-                            <RiErrorWarningLine />
+                            <MdPriorityHigh />
                           </div>
                         )}
                       </div>
@@ -62,10 +63,13 @@ export default function ListPreview({ list }: Props) {
 
         <div className="border-t flex items-center justify-end pt-1">
           <Link
+            title="see full list"
             href={{ pathname: `/list/${list.id}` }}
-            className="text-sm hover:underline"
+            className="text-sm hover:underline flex items-center justify-center gap-1"
           >
-            See full list
+            <span>See full list</span>
+
+            <GrTextAlignFull />
           </Link>
         </div>
       </div>

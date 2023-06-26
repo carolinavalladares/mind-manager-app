@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { PrismaClient } from "@prisma/client";
 import { List, Task } from "@/types/types";
-import { RiErrorWarningLine } from "react-icons/ri";
+import { MdPriorityHigh } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
 import { parseCookies } from "nookies";
 import { toast } from "react-toastify";
 import Router from "next/router";
@@ -95,55 +96,63 @@ export default function Page({ list }: Props) {
   };
 
   return (
-    <div style={{ backgroundColor: list.color }} className="p-2 rounded-md">
-      <div className="bg-white rounded-md p-4">
-        <div className="mb-4">
-          <h1 className="text-lg font-bold">{list.title}</h1>
-        </div>
-        <div>
-          <ul>
-            {tasks &&
-              tasks.map((task, index) => {
-                return (
-                  <div
-                    className="mb-2 flex items-center justify-between border-t pt-2"
-                    key={index}
-                  >
-                    <p className={`${task.done && "line-through"}`}>
-                      {task.title}
-                    </p>
+    <div>
+      <div
+        style={{
+          backgroundColor: list.color,
+          border: `2px solid ${list.color}`,
+        }}
+        className="pt-4 rounded-t-sm"
+      >
+        <div className="bg-white rounded-t-sm p-4">
+          <div className="mb-4">
+            <h1 className="text-lg font-bold">{list.title}</h1>
+          </div>
+          <div>
+            <ul>
+              {tasks &&
+                tasks.map((task, index) => {
+                  return (
+                    <div
+                      className="mb-2 flex items-center justify-between border-t pt-2"
+                      key={index}
+                    >
+                      <p className={`${task.done && "line-through"}`}>
+                        {task.title}
+                      </p>
 
-                    <div className="flex items-center gap-2">
-                      {task.priority && (
-                        <div title="priority" className="text-rose-500">
-                          <RiErrorWarningLine />
+                      <div className="flex items-center gap-2">
+                        {task.priority && (
+                          <div title="priority" className="text-rose-500">
+                            <MdPriorityHigh />
+                          </div>
+                        )}
+
+                        <div>
+                          <input
+                            onChange={() => markAsComplete(index, task)}
+                            style={{ accentColor: list.color }}
+                            type="checkbox"
+                            checked={task.done}
+                          />
                         </div>
-                      )}
-
-                      <div>
-                        <input
-                          onChange={() => markAsComplete(index, task)}
-                          style={{ accentColor: list.color }}
-                          type="checkbox"
-                          checked={task.done}
-                        />
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-          </ul>
+                  );
+                })}
+            </ul>
+          </div>
         </div>
       </div>
-
-      <p className="text-center py-2">
+      <div className="text-center py-2 w-full flex justify-center">
         <button
           onClick={deleteList}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline flex items-center justify-center gap-1 "
         >
-          Delete List
+          <span>Delete List</span>
+          <AiFillDelete />
         </button>
-      </p>
+      </div>
     </div>
   );
 }

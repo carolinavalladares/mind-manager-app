@@ -11,7 +11,7 @@ export default function Home() {
       <h1 className="text-center text-lg">Welcome to Mind Manager</h1>
       <Link
         title="register"
-        className="block mt-4 text-sm bg-slate-400 px-4 py-2 text-slate-100 font-semibold"
+        className="block mt-4 text-sm bg-slate-800 px-4 py-2 text-slate-100 font-semibold"
         href={"register"}
       >
         Join now
