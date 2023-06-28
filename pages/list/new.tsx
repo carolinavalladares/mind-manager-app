@@ -129,33 +129,33 @@ export default function Page() {
         <h1 className="text-lg">create new list</h1>
       </div>
 
-      {/* color */}
-      <div
-        style={{
-          backgroundColor: selectedColor,
-          border: `2px solid ${selectedColor}`,
-        }}
-        className="pt-3 rounded-sm  "
-      >
-        <div className="flex justify-end px-2 mb-2">
-          <input
-            onChange={(e) => setSelectedColor(e.target.value)}
-            className="invisible"
-            type="color"
-            name="color"
-            id="color"
-          />
+      <div className="relative rounded-sm  bg-white shadow-md">
+        <div className=" p-6 rounded-sm">
+          <div className="relative flex justify-end px-2 mb-2 bg-white">
+            <div
+              style={{
+                backgroundColor: selectedColor,
+              }}
+              className="absolute  opacity-30 inset-0 z-10"
+            ></div>
+            <div className="flex items-center justify-center py-2 relative z-20">
+              <input
+                onChange={(e) => setSelectedColor(e.target.value)}
+                className="invisible"
+                type="color"
+                name="color"
+                id="color"
+              />
 
-          <button
-            type="button"
-            onClick={handleColorPopup}
-            className="text-lg bg-slate-800 text-white flex items-center justify-center p-1 rounded-sm"
-          >
-            <BsPaintBucket />
-          </button>
-        </div>
-
-        <div className="bg-white p-6 rounded-sm">
+              <button
+                type="button"
+                onClick={handleColorPopup}
+                className="text-lg bg-slate-800 text-white flex items-center justify-center p-1 rounded-sm"
+              >
+                <BsPaintBucket />
+              </button>
+            </div>
+          </div>
           <form className="flex flex-col justify-center">
             <div className="flex flex-col mb-4">
               <label className="mb-2 text-sm" htmlFor="title">

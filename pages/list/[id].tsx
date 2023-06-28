@@ -97,14 +97,14 @@ export default function Page({ list }: Props) {
 
   return (
     <div>
-      <div
-        style={{
-          backgroundColor: list.color,
-          border: `2px solid ${list.color}`,
-        }}
-        className="pt-4 rounded-t-sm"
-      >
-        <div className="bg-white rounded-t-sm p-4">
+      <div className="relative bg-white rounded-t-sm font-light shadow-md">
+        <div
+          style={{
+            backgroundColor: list.color,
+          }}
+          className="opacity-30 absolute inset-0 z-10 "
+        ></div>
+        <div className=" rounded-t-sm p-4 relative z-20">
           <div className="mb-4">
             <h1 className="text-lg font-bold">{list.title}</h1>
           </div>
@@ -114,6 +114,7 @@ export default function Page({ list }: Props) {
                 tasks.map((task, index) => {
                   return (
                     <div
+                      style={{ borderColor: list.color }}
                       className="mb-2 flex items-center justify-between border-t pt-2"
                       key={index}
                     >

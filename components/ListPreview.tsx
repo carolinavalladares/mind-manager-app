@@ -19,12 +19,15 @@ export default function ListPreview({ list }: Props) {
   }, [list]);
 
   return (
-    <div
-      style={{ backgroundColor: list.color, border: `1px solid ${list.color}` }}
-      className="pt-2 rounded-t-sm  max-w-[200px] w-[200px]"
-    >
-      <div className="bg-white rounded-t-sm p-2 h-full flex flex-col ">
-        <p className=" border-b mb-2">{list.title}</p>
+    <div className="font-light relative pt-2 rounded-t-sm  h-[210px] max-w-[210px] w-[200px] bg-white shadow-md">
+      <div
+        style={{ backgroundColor: list.color }}
+        className="absolute inset-0 opacity-30 z-10"
+      ></div>
+      <div className=" rounded-t-sm p-2 h-full flex flex-col  absolute inset-0 z-20">
+        <p style={{ borderColor: list.color }} className=" border-b mb-2 pb-1">
+          {list.title}
+        </p>
 
         <div className="flex-1 relative">
           <ul>
@@ -61,7 +64,10 @@ export default function ListPreview({ list }: Props) {
           )}
         </div>
 
-        <div className="border-t flex items-center justify-end pt-1">
+        <div
+          style={{ borderColor: list.color }}
+          className="border-t flex items-center justify-end pt-1"
+        >
           <Link
             title="see full list"
             href={{ pathname: `/list/${list.id}` }}
