@@ -1,6 +1,6 @@
 # **Mind Manager app**
 
-The Mind Manager app allows users to log in and create multiple lists, each list has tasks that can have higher priority over other tasks. Users can also mark tasks as done. Lists can be created and deleted by the user whenever.
+The Mind Manager app allows users to log in and create multiple lists, each list has tasks that can have higher priority over other tasks. Users can also mark tasks as done. Lists can be created and deleted by the user.
 
 ### To run this project:
 
